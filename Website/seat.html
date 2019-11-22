@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Seat</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/jquery.seat-charts.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="sample.html">BinePlex</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active">
+					<a href="#">Movies</a>
+				</li>
+				<li>
+					<a href="#">Trailers</a>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Theaters<strong class="caret"></strong></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="#">UC</a>
+						</li>
+						<li>
+							<a href="#">Liberay</a>
+						</li>
+						<li>
+							<a href="#">Pembina Hall</a>
+						</li>
+						<li>
+							<a href="#">OTHER CAMPUS</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+					<input type="text" class="form-control" />
+				</div> <button type="submit" class="btn btn-default"> Search</button>
+			</form>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="#">Log In</a>
+				</li>
+				<li>
+					<a href="#">Sign Up</a>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">More<strong class="caret"></strong></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="#">About Us</a>
+						</li>
+						<li class="divider">
+						</li>
+						<li>
+							<a href="#">Contact Us</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<br></br>
+	<br></br>
+	<div class="media">
+		<a href="#" class="pull-left"><img src="joker2.jpg" width = "200" height = "300" class="media-object" alt='' /></a>
+		<div class="media-body">
+			<h1 class="media-heading">
+				Joker
+			</h1> In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker".
+		</div>
+	</div>
+	<br></br>
+	<div class="wrapper">
+		<div class="container">
+			<div id="seat-map">
+				<div class="front-indicator">Screen</div>
+			</div>
+			<div class="booking-details">
+				<p></p>
+				<br></>
+				<h2>Choosen Seat(<span id="counter">0</span>):</h2>
+				<ul id="selected-seats">
+				</ul>
+				<p>Price: <b>$<span id="total">0</span></b></p>
+				<p><button class="checkout-button btn-primary btn-lg" >Check Out</button></p>      
+				<div id="legend"></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/jquery.seat-charts.min.js"></script>
+	<script src="js/jquery.seat-charts.js"></script>
+	<script>
+		var firstSeatLabel = 1;
+
+		$(document).ready(function() {
+			var $cart = $('#selected-seats'),
+			$counter = $('#counter'),
+			$total = $('#total'),
+			sc = $('#seat-map').seatCharts({
+				map: [
+				'nnnnnnnnnn',
+				'nnnnnnnnnn',
+				'nnppppppnn',
+				'nnppppppnn',
+				'nnnnnnnnnn',
+				'nnnnnnnnnn',
+				'nnnnnnnnnn',
+				'nnnnnnnnnn',
+				'nnnnnnnnnn',
+				'nnnnnnnnnn',
+				],
+				seats: {
+					p: {
+						price   : 16,
+							classes : 'first-class', //your custom CSS class
+							category: 'Prime'
+						},
+						n: {
+							price   : 13,
+							classes : 'economy-class', //your custom CSS class
+							category: 'Normal'
+						}					
+
+					},
+					naming : {
+						top : false,
+						getLabel : function (character, row, column) {
+							return firstSeatLabel++;
+						},
+					},
+					legend : {
+						node : $('#legend'),
+						items : [
+						[ 'p', 'available',   'Prime' ],
+						[ 'n', 'available',   'Normal'],
+						[ 'n', 'unavailable', 'Booked']
+						]					
+					},
+					click: function () {
+						if (this.status() == 'available') {
+							$('<li>'+'NO.'+this.settings.label+' ('+this.data().category+')'+'<br/>Price：<b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[Delete]</a></li>')
+							.attr('id','cart-item-'+this.settings.id)
+							.data('seatId', this.settings.id)
+							.appendTo($cart);
+							$counter.text(sc.find('selected').length+1);
+							$total.text(recalculateTotal(sc)+this.data().price);
+							
+							return 'selected';
+						} else if (this.status() == 'selected') {
+							//update the counter
+							$counter.text(sc.find('selected').length-1);
+							//and total
+							$total.text(recalculateTotal(sc)-this.data().price);
+
+							//remove the item from our cart
+							$('#cart-item-'+this.settings.id).remove();
+
+							//seat has been vacated
+							return 'available';
+						} else if (this.status() == 'unavailable') {
+							//seat has been already booked
+							return 'unavailable';
+						} else {
+							return this.style();
+						}
+					}
+				});
+
+				//this will handle "[cancel]" link clicks
+				$('#selected-seats').on('click', '.cancel-cart-item', function () {
+					//let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+					sc.get($(this).parents('li:first').data('seatId')).click();
+				});
+
+				//let's pretend some seats have already been booked
+				sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
+
+			});
+
+		function recalculateTotal(sc) {	
+			var total = 0;
+
+			//basically find every selected seat and sum its price
+			sc.find('selected').each(function () {
+				total += this.data().price;
+			});
+			
+			return total;
+		}
+		
+	</script>
+</body>

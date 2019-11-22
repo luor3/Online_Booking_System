@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Log in</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<style>
+		body {font-family: Arial, Helvetica, sans-serif;}
+		form {border: 3px solid #f1f1f1;}
+		
+		input[type=text], input[type=password] {
+		  width: 100%;
+		  padding: 12px 20px;
+		  margin: 8px 0;
+		  display: inline-block;
+		  border: 1px solid #ccc;
+		  box-sizing: border-box;
+		}
+		
+		.loginbtn {
+		  background-color: #4CAF50;
+		  color: white;
+		  padding: 14px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  cursor: pointer;
+		  width: 100%;
+		}
+		
+		button:hover {
+		  opacity: 0.8;
+		}
+		
+		.cancelbtn {
+		  width: auto;
+		  padding: 10px 18px;
+		  background-color: #f44336;
+		}
+		
+		.imgcontainer {
+		  text-align: center;
+		  margin: 24px 0 12px 0;
+		}
+		
+		img.avatar {
+		  width: 20%;
+		  border-radius: 20%;
+		}
+	
+		
+		span.psw {
+		  float: right;
+		  padding-top: 16px;
+		}
+		
+		/* Change styles for span and cancel button on extra small screens */
+		@media screen and (max-width: 300px) {
+		  span.psw {
+			 display: block;
+			 float: none;
+		  }
+		}
+		</style>
+
+<body>
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span
+						class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a
+					href="index.html" class="navbar-brand"> BinePlex</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active">
+						<a href="index.html">Movies</a>
+					</li>
+					<li>
+						<a href="#">Trailers</a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Theaters<strong
+								class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#">UC</a>
+							</li>
+							<li>
+								<a href="#">Liberay</a>
+							</li>
+							<li>
+								<a href="#">Pembina Hall</a>
+							</li>
+							<li>
+								<a href="#">OTHER CAMPUS</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" />
+					</div> <button type="submit" class="btn btn-default"> Search</button>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="login.html" class="btn btn-primary" role="button">Log In</a>
+					</li>
+					<li>
+						<a href="signup.html"class="button">Sign Up</a>
+					</li>
+	
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More<strong class="caret"></strong></a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#">About Us</a>
+							</li>
+							<li class="divider">
+							</li>
+							<li>
+								<a href="#">Contact Us</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<form action="/action_page.php" method="post">
+				<div class="imgcontainer">
+				  <img src="user.png" alt="Avatar" class="avatar">
+				</div>
+			  
+				<div class="container">
+				  <label for="uname"><b>Username</b></label>
+				  <input type="text" placeholder="Enter Username" name="uname" required>
+			  
+				  <label for="psw"><b>Password</b></label>
+				  <input type="password" placeholder="Enter Password" name="psw" required>
+					  
+				  <button type="submit" class="loginbtn">Login</button>
+				  <label>
+					<input type="checkbox" checked="checked" name="remember"> Remember me
+				  </label>
+				</div>
+			  
+				<div class="container" style="background-color:#f1f1f1">
+				  <span class="psw">Forgot <a href="#">password?</a></span>
+				</div>
+			  </form>
+			
+		</nav>
+	
+		
+			  
+</body>
